@@ -146,7 +146,7 @@ namespace RF4STextureExtractor
 
             }
             else
-            { Console.WriteLine("Drag and Drop your .texture File in the app.");
+            { Console.WriteLine("Drag and Drop your .texture File in the app. (Version 1.2)");
                 Console.WriteLine("To re-import a texture add '-i' before the .texture File");
                 Console.WriteLine("Questions? https://github.com/darkxex/");
                 Console.ReadLine();
