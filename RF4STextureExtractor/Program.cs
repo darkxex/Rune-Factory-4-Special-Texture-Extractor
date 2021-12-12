@@ -28,16 +28,20 @@ namespace RF4STextureExtractor
                 else
                 { namefile = args[0]; }
                 byte[] byteBuffer = File.ReadAllBytes(namefile);
-                string byteBufferAsString = System.Text.Encoding.UTF8.GetString(byteBuffer);
-                Int32 offset1 = byteBufferAsString.IndexOf("PIXL");
+                
                 using (BinaryReader reader = new BinaryReader(File.Open(namefile, FileMode.Open)))
                 {
-                    reader.BaseStream.Position = offset1 + 0x24;
+                    reader.BaseStream.Position = 0x38;
+                    int temp = reader.ReadInt32();
+                    reader.BaseStream.Position = temp;
+                    reader.ReadBytes(0x4C);
+                
+                    Console.WriteLine(reader.BaseStream.Position.ToString("X"));
                     TextureDecode.Width = reader.ReadInt32();
                     TextureDecode.Height = reader.ReadInt32();
 
-                    Console.WriteLine("Width: " + TextureDecode.Width);
-                    Console.WriteLine("Heigth: " + TextureDecode.Height);
+                    Console.WriteLine("Width: " + TextureDecode.Width + " Width: " + TextureDecode.Width.ToString("X"));
+                    Console.WriteLine("Heigth: " + TextureDecode.Height + " Height: "+ TextureDecode.Height.ToString("X"));
 
 
                     reader.BaseStream.Position = 0x30;
@@ -92,7 +96,6 @@ namespace RF4STextureExtractor
 
                     }
                 }
-               
 
             }
             else

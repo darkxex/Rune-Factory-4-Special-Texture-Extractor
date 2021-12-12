@@ -6,3 +6,11 @@ C:\Users\darkx\source\repos\RF4STextureExtractor\RF4STextureExtractor\obj\Debug\
 C:\Users\darkx\source\repos\RF4STextureExtractor\RF4STextureExtractor\obj\Debug\RF4STextureExtractor.pdb
 C:\Users\darkx\source\repos\RF4STextureExtractor\RF4STextureExtractor\obj\Debug\RF4STextureExtractor.Properties.Resources.resources
 C:\Users\darkx\source\repos\RF4STextureExtractor\RF4STextureExtractor\obj\Debug\RF4STextureExtractor.csproj.GenerateResource.cache
+C:\Users\darkx\Documents\GitHub\Rune-Factory-4-Special-Texture-Extractor\RF4STextureExtractor\bin\Debug\RF4STextureExtractor.exe
+C:\Users\darkx\Documents\GitHub\Rune-Factory-4-Special-Texture-Extractor\RF4STextureExtractor\bin\Debug\RF4STextureExtractor.pdb
+C:\Users\darkx\Documents\GitHub\Rune-Factory-4-Special-Texture-Extractor\RF4STextureExtractor\obj\Debug\RF4STextureExtractor.csprojAssemblyReference.cache
+C:\Users\darkx\Documents\GitHub\Rune-Factory-4-Special-Texture-Extractor\RF4STextureExtractor\obj\Debug\RF4STextureExtractor.Properties.Resources.resources
+C:\Users\darkx\Documents\GitHub\Rune-Factory-4-Special-Texture-Extractor\RF4STextureExtractor\obj\Debug\RF4STextureExtractor.csproj.GenerateResource.cache
+C:\Users\darkx\Documents\GitHub\Rune-Factory-4-Special-Texture-Extractor\RF4STextureExtractor\obj\Debug\RF4STextureExtractor.csproj.CoreCompileInputs.cache
+C:\Users\darkx\Documents\GitHub\Rune-Factory-4-Special-Texture-Extractor\RF4STextureExtractor\obj\Debug\RF4STextureExtractor.exe
+C:\Users\darkx\Documents\GitHub\Rune-Factory-4-Special-Texture-Extractor\RF4STextureExtractor\obj\Debug\RF4STextureExtractor.pdb
