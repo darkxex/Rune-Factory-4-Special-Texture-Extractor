@@ -7,7 +7,8 @@ using System.Text;
 namespace RF4STextureExtractor
 {
     struct HeaderTex
-    { public long rawOffset;
+    {
+        public string namedds;
         public int Width;
         public int Height;
         public int sizeTexture;
@@ -16,17 +17,22 @@ namespace RF4STextureExtractor
     {
         static void Main(string[] args)
         {
+            //recuerda ponerlo mayor
             if (args.Length > 0)
             {
                 String namefile;
                 bool import = false;
-                if (args[0] == "-i")
+               if (args[0] == "-i")
                 { import = true; }
-                HeaderTex TextureDecode;
+                HeaderTex[] TextureDecode;
                 if (import == true)
-                { namefile = args[1]; }
+                { namefile = args[1];
+                  //namefile = "propeller_ship_02.texture";
+                }
                 else
-                { namefile = args[0]; }
+                { namefile = args[0];
+                  //namefile = "propeller_ship_02.texture";
+                }
                 byte[] byteBuffer = File.ReadAllBytes(namefile);
                 
                 using (BinaryReader reader = new BinaryReader(File.Open(namefile, FileMode.Open)))
@@ -34,67 +40,108 @@ namespace RF4STextureExtractor
                     reader.BaseStream.Position = 0x38;
                     int temp = reader.ReadInt32();
                     reader.BaseStream.Position = temp;
-                    reader.ReadBytes(0x4C);
-                
-                    Console.WriteLine(reader.BaseStream.Position.ToString("X"));
-                    TextureDecode.Width = reader.ReadInt32();
-                    TextureDecode.Height = reader.ReadInt32();
+                    temp = reader.ReadInt32();
+                    int texCounter = reader.ReadInt32();
+                    TextureDecode = new HeaderTex[texCounter];
+                    long Dummy2 = reader.ReadInt64();
+                    Console.WriteLine("Textures: " + texCounter);
+                    int posTemp = (texCounter * 16) + 8;
+                    byte[] Dummy = reader.ReadBytes(posTemp);
+                    long savePos = reader.BaseStream.Position;
+                    char[] PIXL = reader.ReadChars(4);
+                    
+                    int SizePIXL = reader.ReadInt32();
+                    
+                    
+                    for (int x = 0; x < texCounter; x++)
+                    {
+                        int result = (SizePIXL * ( x));
+                        long newDirection = savePos + result;
 
-                    Console.WriteLine("Width: " + TextureDecode.Width + " Width: " + TextureDecode.Width.ToString("X"));
-                    Console.WriteLine("Heigth: " + TextureDecode.Height + " Height: "+ TextureDecode.Height.ToString("X"));
+                        reader.BaseStream.Position = newDirection;
 
+                        Console.WriteLine("PIXL: " + reader.BaseStream.Position.ToString("X"));
+                        PIXL = reader.ReadChars(4);
+                        
+                        SizePIXL = reader.ReadInt32();
+                        reader.ReadBytes(0x1C);
+                        TextureDecode[x].Width = reader.ReadInt32();
+                        TextureDecode[x].Height = reader.ReadInt32();
+                        reader.ReadBytes(0x24);
+                        TextureDecode[x].sizeTexture = reader.ReadInt32();
+                        TextureDecode[x].namedds = Path.GetFileNameWithoutExtension(namefile)+"_"+x;
+                        Console.WriteLine("Name: " + TextureDecode[x].namedds);
+                        Console.WriteLine("Size: " + TextureDecode[x].sizeTexture + " bytes " + TextureDecode[x].sizeTexture.ToString("X"));
+                        Console.WriteLine("Width: " + TextureDecode[x].Width + " Width: " + TextureDecode[x].Width.ToString("X"));
+                        Console.WriteLine("Heigth: " + TextureDecode[x].Height + " Height: " + TextureDecode[x].Height.ToString("X"));
+                        Console.WriteLine("------------------------------------------------------------");
 
+                    }
+
+                    
+                    
                     reader.BaseStream.Position = 0x30;
                     int TemporalOffset = reader.ReadInt32();
-                    reader.BaseStream.Position = TemporalOffset;
-                    long initRaw = reader.ReadInt64();
-                    TextureDecode.sizeTexture = reader.ReadInt32();
-                    TextureDecode.sizeTexture -= 0x10;
-                    int dummy = reader.ReadInt32();
-                    TextureDecode.rawOffset = reader.BaseStream.Position;
+                    reader.BaseStream.Position = TemporalOffset + 0x10;
+                    long OriginalOffset = reader.BaseStream.Position;
 
-                    reader.BaseStream.Position = TextureDecode.rawOffset;
+
+
+
                     byte[] ddsHeader = Properties.Resources.bc7;
-                    byte[] content = reader.ReadBytes(TextureDecode.sizeTexture);
-
-                    if (import == false)
-
-                    {
-                        using (BinaryWriter writer = new BinaryWriter(File.Open(Path.GetFileNameWithoutExtension(namefile) + ".dds", FileMode.Create)))
-                        {
-                            writer.Write(ddsHeader);
-                            writer.Write(content);
-                            writer.BaseStream.Position = 0xC;
-                            writer.Write(TextureDecode.Height);
-                            writer.Write(TextureDecode.Width);
-
-                        }
-                    }
                    
+                    
+                  if (import == false)
 
-                }
+                  {
+                        for (int x = 0; x < texCounter; x++)
+                        { byte[] content = reader.ReadBytes(TextureDecode[x].sizeTexture);
+                            using (BinaryWriter writer = new BinaryWriter(File.Open(TextureDecode[x].namedds + ".dds", FileMode.Create)))
+                            {
+                                writer.Write(ddsHeader);
+                                writer.Write(content);
+                                writer.BaseStream.Position = 0xC;
+                                writer.Write(TextureDecode[x].Height);
+                                writer.Write(TextureDecode[x].Width);
 
-                byte[] toWrite; 
-
-                if (import == true)
-                {
-                    using (BinaryReader reader = new BinaryReader(File.Open(Path.GetFileNameWithoutExtension(namefile) + ".dds", FileMode.Open)))
-                    {
-
-                        reader.BaseStream.Position = 0x94;
-                        toWrite = reader.ReadBytes(TextureDecode.sizeTexture);
+                            }
+                            Console.WriteLine(TextureDecode[x].namedds + ".dds");
+                            Console.WriteLine("Extraction completed.");
+                        }
+                          
+                        
+                  }
 
 
+
+                    
+                  byte[] toWrite; 
+
+                  if (import == true)
+                  {
+                    using (BinaryWriter writer = new BinaryWriter(File.Open("new_" + Path.GetFileName(namefile), FileMode.Create)))
+                        {
+                            writer.Write(byteBuffer);
+                            writer.BaseStream.Position = OriginalOffset;
+                            for (int x = 0; x < texCounter; x++)
+                            { using (BinaryReader reader2 = new BinaryReader(File.Open(TextureDecode[x].namedds + ".dds", FileMode.Open)))
+                                {
+                                    reader2.BaseStream.Position = 0x94;
+                                    toWrite = reader2.ReadBytes(TextureDecode[x].sizeTexture);
+                                }
+
+                                writer.Write(toWrite);
+                                Console.WriteLine(TextureDecode[x].namedds + ".dds imported...");
+                            }
+
+                      
+                         
+
+                          
+                          
                     }
 
-                    using (BinaryWriter writer = new BinaryWriter(File.Open("Modded_" + Path.GetFileName(namefile), FileMode.Create)))
-                    {
-                        writer.Write(byteBuffer);
-
-                        writer.BaseStream.Position = TextureDecode.rawOffset;
-                        writer.Write(toWrite);
-
-                    }
+                  } 
                 }
 
             }
