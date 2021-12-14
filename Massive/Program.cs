@@ -13,9 +13,10 @@ namespace MassiveTexRF4
             if (args.Length > 0)
             {
                 string[] files = System.IO.Directory.GetFiles(args[0], "*.texture");
+                Console.WriteLine(args[0]);
 
                 // Create a file to write to.
-                using (StreamWriter sw = File.CreateText("MassiveImporter.bat"))
+                using (StreamWriter sw = File.CreateText(args[0] + "\\"+"MassiveImporter.bat"))
                 {
                     foreach (string file in files)
                     {
@@ -25,7 +26,7 @@ namespace MassiveTexRF4
                     }
                 }
 
-                using (StreamWriter sw = File.CreateText("MassiveExporter.bat"))
+                using (StreamWriter sw = File.CreateText(args[0] + "\\" + "MassiveExporter.bat"))
                 {
                     foreach (string file in files)
                     {
@@ -34,7 +35,7 @@ namespace MassiveTexRF4
 
                     }
                 }
-                Console.ReadLine();
+
             }
             else
             { Console.WriteLine("Drag and Drop the folder with textures.");

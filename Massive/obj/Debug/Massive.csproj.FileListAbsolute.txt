@@ -1,0 +1,6 @@
+C:\Users\darkx\Documents\GitHub\Rune-Factory-4-Special-Texture-Extractor\Massive\bin\Debug\MassiveTexRF4.exe
+C:\Users\darkx\Documents\GitHub\Rune-Factory-4-Special-Texture-Extractor\Massive\bin\Debug\MassiveTexRF4.pdb
+C:\Users\darkx\Documents\GitHub\Rune-Factory-4-Special-Texture-Extractor\Massive\obj\Debug\Massive.csprojAssemblyReference.cache
+C:\Users\darkx\Documents\GitHub\Rune-Factory-4-Special-Texture-Extractor\Massive\obj\Debug\Massive.csproj.CoreCompileInputs.cache
+C:\Users\darkx\Documents\GitHub\Rune-Factory-4-Special-Texture-Extractor\Massive\obj\Debug\MassiveTexRF4.exe
+C:\Users\darkx\Documents\GitHub\Rune-Factory-4-Special-Texture-Extractor\Massive\obj\Debug\MassiveTexRF4.pdb
