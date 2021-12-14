@@ -1,0 +1,6 @@
+C:\Users\darkx\source\repos\Masive\Masive\bin\Debug\MassiveTexRF4.exe
+C:\Users\darkx\source\repos\Masive\Masive\bin\Debug\MassiveTexRF4.pdb
+C:\Users\darkx\source\repos\Masive\Masive\obj\Debug\Masive.csprojAssemblyReference.cache
+C:\Users\darkx\source\repos\Masive\Masive\obj\Debug\Masive.csproj.CoreCompileInputs.cache
+C:\Users\darkx\source\repos\Masive\Masive\obj\Debug\MassiveTexRF4.exe
+C:\Users\darkx\source\repos\Masive\Masive\obj\Debug\MassiveTexRF4.pdb
