@@ -1,0 +1,6 @@
+# Ignora todos los archivos texture
+*.texture
+# Ignora todos los archivos dds
+*.dds
+# Ignora todos los archivos .bat
+*.bat
